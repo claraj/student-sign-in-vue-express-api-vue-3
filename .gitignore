@@ -1,3 +1,4 @@
 node_modules
 student.sqlite
 .DS_Store
+nohup.out
