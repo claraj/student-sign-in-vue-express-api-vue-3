@@ -5,9 +5,9 @@ let Student = db.Student
 let router = express.Router() 
 
 router.get('/students', function(req, res, next){
-    Student.findAll( {order: ['present', 'name']} ).then( students => {
+    Student.findAll( {order: ['starID']} ).then( students => {
         return res.json(students)
-    }).catch( err => next(err) )
+    })
 })
 
 router.post('/students', function(req, res, next){
@@ -34,21 +34,21 @@ router.patch('/students/:id', function(req, res, next){
     Student.update( updatedStudent, { where: { id: studentID } } )
         .then( (rowsModified) => {
 
-            let numberOfRowsModified = rowsModified[0]
+            let numberOfRowsModified = rowsModified[0]  // number of rows changed 
 
-            if (numberOfRowsModified == 1) {
+            if (numberOfRowsModified == 1) {   // exactly one row 
                 return res.send('ok')
             }
             
-            // what about student not found?
+            // no rows - student not found - return 404
             else {
-                return res.status(404).json(['Student with that id not found'])
+                return res.status(404).json(['Student with that Star ID not found'])
             }
         })
         .catch( err => {
-            // if validation error, that's a bad request
+            // if validation error, that's a bad request - e.g. modify student to have no name 
             if (err instanceof db.Sequelize.ValidationError) {
-                let messages = err.errors.map( e => e.message) 
+                let messages = err.errors.map( e => e.message ) 
                 return res.status(400).json(messages)
             } else {
                 // unexpected error 
@@ -64,7 +64,7 @@ router.delete('/students/:id', function(req, res, next){
             if (rowsDeleted == 1) {
                 return res.send('ok')
             } else {
-                return res.status(404).json(['Not found'])
+                return res.status(404).json(['Not Found'])
             }
         })
         .catch( err => next(err) )  // unexpected errors.
