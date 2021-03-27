@@ -12,7 +12,8 @@ module.exports = (sequelize, DataTypes) => {
             unique: true,
             validate: {
                 is: /^[a-z]{2}\d{4}[a-z]{2}$/  
-                // Regular expression to match the pattern of a StarID, two lowercase letters a-z, four digits, two lowercase letters a-z
+                // Regular expression to match the pattern of a StarID, 
+                // two lowercase letters a-z, four digits, two lowercase letters a-z
                 // https://regex101.com/r/GDMDuY/1/
             }
         }, 
@@ -33,3 +34,4 @@ module.exports = (sequelize, DataTypes) => {
 
     return Student  
 } 
+
