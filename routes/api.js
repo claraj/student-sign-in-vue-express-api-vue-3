@@ -5,7 +5,10 @@ let Student = db.Student
 let router = express.Router() 
 
 router.get('/students', function(req, res, next){
-    Student.findAll( {order: ['present', 'name']} ).then( students => {
+    Student.findAll( {order: [
+        'present',                                          // order by present
+        db.Sequelize.fn('lower', db.Sequelize.col('name'))  // and then by lowercase versions of names - a case-insensive sort
+    ]} ).then( students => {
         return res.json(students)
     })
 })
