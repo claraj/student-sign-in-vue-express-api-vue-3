@@ -40,15 +40,27 @@ export default {
     updateStudents() {
       this.$student_api.getAllStudents().then( students => {
         this.students = students
-      }).catch( () => alert('Unable to fetch student list'))
+      }).catch( err => {
+        console.error('Error getting latest student list', err.response)
+        alert('Sorry, unable to fetch student list')
+      })
     },
     newStudentAdded(student) {
       this.$student_api.addStudent(student).then( () => {
         this.updateStudents()
       })
       .catch( err => {
-        let msg = err.response.data.join(',')
-        alert('Error adding student\n' + msg)
+        console.log('Error fetching student list', err)
+        // if data is returned from the server and it's an array
+        if (err.response.data && Array.isArray(err.response.data)) {
+          // join messages and alert user - this will be used for DB validation errors
+          let msg = err.response.data.join(',')
+          alert('Error adding student\n' + msg)
+        } else {
+          // something else went wrong, display generic error
+          console.error('Error adding student', err.response)
+          alert('Sorry, unable to add student')
+        }
       })
     },
     studentArrivedOrLeft(student, present) {
@@ -56,13 +68,19 @@ export default {
       this.$student_api.updateStudent(student).then( () => {
         this.mostRecentStudent = student
         this.updateStudents()
-      }).catch( () => alert('Unable to update student'))
+      }).catch( err => {
+        console.error('Error updating student', err.response)
+        alert('Sorry, unable to update student')
+      })
     },
     studentDeleted(student) {
       this.$student_api.deleteStudent(student.id).then( () => {
         this.updateStudents()
         this.mostRecentStudent = {}  // clear welcome/goodbye message 
-      }).catch( () => alert('Unable to delete student'))
+      }).catch( err => {
+        console.error('Error deleting student', err.response)
+        alert('Sorry, unable to delete student')
+      })
     }
   }
 }
