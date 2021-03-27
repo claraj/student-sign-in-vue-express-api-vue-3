@@ -1,6 +1,8 @@
 <template>
   <div id="app">
     
+    <h1>Student Sign In</h1>
+
     <NewStudentForm v-on:student-added="newStudentAdded"></NewStudentForm>
     <StudentTable
       v-bind:students="students" 
@@ -68,6 +70,10 @@ export default {
 
 <style>
 
-@import "https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+@import "https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css";
+
+h1 {
+  padding: 10px;
+}
 
 </style>
