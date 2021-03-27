@@ -7,8 +7,8 @@ curl 127.0.0.1:8080/api/students
 
 // POST to add student 
 // running one of these twice should fail due to duplicate starID
-curl -X POST --data '{"name":"ali","starID":"a123a"}' -H "Content-Type: Application/JSON" 127.0.0.1:8080/api/students
-curl -X POST --data '{"name":"zoe", "starID":"z123z"}' -H "Content-Type: Application/JSON" 127.0.0.1:8080/api/students
+curl -X POST --data '{"name":"ali","starID":"aa1234aa"}' -H "Content-Type: Application/JSON" 127.0.0.1:8080/api/students
+curl -X POST --data '{"name":"zoe", "starID":"zz1234zz"}' -H "Content-Type: Application/JSON" 127.0.0.1:8080/api/students
 
 // POST expect this to fail, no starID
 curl -X POST --data '{"name":"bob"}' -H "Content-Type: Application/JSON" 127.0.0.1:8080/api/students
