@@ -1,0 +1,33 @@
+// Example curl commands.  Windows users, use Git Bash. 
+
+Mac/Linux/Windows Git Bash
+
+// GET all students 
+curl 127.0.0.1:8080/api/students
+
+// POST to add student 
+// running one of these twice should fail due to duplicate starID
+curl -X POST --data '{"name":"ali","starID":"a123a"}' -H "Content-Type: Application/JSON" 127.0.0.1:8080/api/students
+curl -X POST --data '{"name":"zoe", "starID":"z123z"}' -H "Content-Type: Application/JSON" 127.0.0.1:8080/api/students
+
+// POST expect this to fail, no starID
+curl -X POST --data '{"name":"bob"}' -H "Content-Type: Application/JSON" 127.0.0.1:8080/api/students
+
+// POST Expect this to fail, no name or star ID
+curl -X POST --data '{}' -H "Content-Type: Application/JSON" 127.0.0.1:8080/api/students
+
+// PATCH edit student with id=1 , set present to true 
+curl -X PATCH --data '{"present":"true"}' -H "Content-Type: Application/JSON" 127.0.0.1:8080/api/students/1
+
+// PATCH edit student with id=1, set name to 'bob'
+curl -X PATCH --data '{"name":"bob"}' -H "Content-Type: Application/JSON" 127.0.0.1:8080/api/students/1
+
+// PATCH edit student with id=3, set starID to aa1234bb
+curl -X PATCH --data '{"starID":"aa1234bb"}' -H "Content-Type: Application/JSON" 127.0.0.1:8080/api/students/3
+
+// DELETE remove student with id=1 
+curl -X DELETE 127.0.0.1:8080/api/students/1
+
+// delete student id = 1000, probably not found
+curl -X DELETE 127.0.0.1:8080/api/students/1000
+
