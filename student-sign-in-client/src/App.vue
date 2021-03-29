@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     
-    <h1>Student Sign In</h1>
+    <h1 class="m-2">Student Sign In</h1>
 
     <NewStudentForm v-on:student-added="newStudentAdded"></NewStudentForm>
     <StudentTable
@@ -90,8 +90,9 @@ export default {
 
 @import "https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css";
 
-h1 {
+/* Use a regular CSS class, or a bootstrap class to the h1 to add spacing */
+/* h1 {
   padding: 10px;
-}
+} */
 
 </style>
